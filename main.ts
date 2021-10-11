@@ -1,10 +1,9 @@
 import * as ink from "https://deno.land/x/ink/mod.ts";
 
-console.log("type a url like this: https://026f-181-58-226-188.ngrok.io")
 console.log(await Deno.readTextFile("welcome.txt"))
 console.log("version 0.0.1")
 console.log("Type ctrl + c to exit")
-const url: string | null = prompt("enter the ngrok url:")!;
+const url: string | null = prompt("enter the ngrok url (without / at the end):")!;
 if (!url || url.length === 0) {
   console.log("put the url!");
 } else {
