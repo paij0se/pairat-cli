@@ -5,8 +5,8 @@ const text = Deno.readTextFile("welcome.txt");
 text.then((response) => console.log(response));
 console.log("version 0.0.1")
 console.log("Type ctrl + c to exit")
-const url: any = prompt("enter the ngrok url:");
-if (!url || url.lenght === 0) {
+const url: string | null = prompt("enter the ngrok url:")!;
+if (!url || url.length === 0) {
   console.log("put the url!");
 } else {
   const getIp = await fetch(`${url}/ip`, { method: "GET" });
