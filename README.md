@@ -1,6 +1,6 @@
 <h1>pairat-cli</h1>
 
-<img src="https://media.discordapp.net/attachments/744419261086433282/897171924982071387/unknown-32.png?width=390&height=386">
+<img src="https://mamalinda.tk/cli.png">
 
 you need deno for this:https://deno.land/
 
