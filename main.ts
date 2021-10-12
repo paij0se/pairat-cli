@@ -50,7 +50,7 @@ interface IIp {
   while (true) {
     const input = prompt(" 💀 >");
 
-    const rawResponse = await fetch(`${url}/commands`, {
+    const rawResponse = await fetch(`${url}/commands/ansitrue`, {
       method: "POST",
       headers: {
         Accept: "application/json",
