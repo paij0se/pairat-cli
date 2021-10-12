@@ -1,6 +1,6 @@
 <h1>pairat-cli</h1>
 
-<img src="https://mamalinda.tk/cli.png">
+<img src="https://mamalinda.tk/cli.gif">
 
 you need deno for this:https://deno.land/
 
