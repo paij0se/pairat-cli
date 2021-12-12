@@ -22,17 +22,18 @@ interface IIp {
 
   const url: string | null = prompt("Enter the ngrok url:");
 
-  if (!url || url.length < 1)
-    return console.log("Put a valid URL!");
+  if (!url || url.length < 1) return console.log("Put a valid URL!");
 
   const checkConection: Response = await fetch(url, { method: "GET" }),
     isConected: string = await checkConection.text();
 
   if (isConected !== "💀")
-    return console.log(ink.colorize("<red>Unable to conect, check the url.</red>"));
+    return console.log(
+      ink.colorize("<red>Unable to conect, check the url.</red>")
+    );
 
   console.log(ink.colorize("<green>      Conencted!</green>"));
-  
+
   const getIp: Response = await fetch(`${url}/ip`, { method: "GET" }),
     ip: IIp = await getIp.json();
 
